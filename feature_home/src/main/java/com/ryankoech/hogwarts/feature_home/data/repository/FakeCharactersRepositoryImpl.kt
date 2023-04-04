@@ -7,7 +7,7 @@ import com.ryankoech.hogwarts.feature_home.domain.repository.CharactersRepositor
 import retrofit2.Response
 import javax.inject.Inject
 
-class FakeCharactersRepsitoryImpl @Inject constructor() : CharactersRepository {
+class FakeCharactersRepositoryImpl @Inject constructor() : CharactersRepository {
 
     companion object {
 
