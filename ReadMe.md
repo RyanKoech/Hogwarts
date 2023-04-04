@@ -1,0 +1,93 @@
+<!-- PROJECT SHIELDS -->
+<!--
+* I'm using markdown "reference style" links for readability.
+* Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+* See the bottom of this document for the declaration of the reference variables
+* for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+* https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
+![](https://img.shields.io/badge/Personal_Project-blue)
+
+**WIP - First release coming soon.**
+
+# Hogwarts
+
+> Harry Potter Fans! All your favourite characters conveniently in your pocket.
+
+## Technologies
+
+> Native application developed using the **Kotlin** programming language.
+
+Below are some of the key android concepts used/applied in this project:
+
+- Clean Architecture
+- Jetpack compose
+- Feature multi-modularization
+- Room Database
+- Retrofit / OkHttp
+- Dagger-Hilt
+- Shared preferences
+- etc
+
+### Main Project Features
+Each feature is will comprise of 3 layers; presentation, domain, data
+
+- Home Feature - Access full list of all characters.
+- Character Feature - Get inside information about your favourite character.
+
+## App Screenshots
+
+### Light
+_Coming Soon_
+
+## Getting Started
+
+To get a local copy up and running follow these simple example steps.
+
+```bash
+git clone https://github.com/RyanKoech/Hogwarts.git
+```
+
+### Prerequisites
+Installed Android Studio or Any other android development IDEs and their respective dependencies.
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! <br/>
+You can pick a thing to do from the [issues page](../../issues) and work on it. I will be raise more soon. <br/>
+
+Observe the following in order to have your PR merged successfully.
+- Create **branches from the `develop` branch** of your forked repo.
+- Create a **PR to the `develop` branch**
+- Prefix **branch name** with its **issue label then issue number** of the most significant issue being solved ie `bug/21`, `ui/23`, `enhancement/45`. This means you need to have an issue open before you can work on a contribution. Where an issue has several labels, choose branch name in order of precedence, `bug > enhancement > testing > ui > documentation`.
+- Fix the least number of issues per PR. Best, **1 issue per PR**. Else, tag any other issue solved in the PR.
+
+Feel free to check the [issues page](../../issues/) or [discussions page](../../discussions).
+
+## Show your support
+
+Give a ⭐ if you like this project!
+
+## 📝 License
+
+This project is [MIT](./LICENCE) licensed.
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/RyanKoech/Hogwarts.svg?style=for-the-badge
+[contributors-url]: https://github.com/RyanKoech/Hogwarts/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/RyanKoech/Hogwarts.svg?style=for-the-badge
+[forks-url]: https://github.com/RyanKoech/Hogwarts/network/members
+[stars-shield]: https://img.shields.io/github/stars/RyanKoech/Hogwarts.svg?style=for-the-badge
+[stars-url]: https://github.com/RyanKoech/Hogwarts/stargazers
+[issues-shield]: https://img.shields.io/github/issues/RyanKoech/Hogwarts.svg?style=for-the-badge
+[issues-url]: https://github.com/RyanKoech/Hogwarts/issues
+[license-shield]: https://img.shields.io/github/license/RyanKoech/Hogwarts.svg?style=for-the-badge
+[license-url]: https://github.com/RyanKoech/Hogwarts/blob/master/LICENCE
