@@ -1,6 +1,6 @@
-package com.ryankoech.common.core.di
+package com.ryankoech.hogwarts.common.core.di
 
-import com.ryankoech.common.BuildConfig
+import com.ryankoech.hogwarts.common.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

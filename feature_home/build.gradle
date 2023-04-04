@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.ryankoech.feature_home'
+    namespace 'com.ryankoech.hogwarts.feature_home'
     compileSdk 32
 
     defaultConfig {
