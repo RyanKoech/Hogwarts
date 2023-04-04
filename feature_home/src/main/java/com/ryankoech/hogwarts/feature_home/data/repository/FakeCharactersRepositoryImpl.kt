@@ -11,8 +11,9 @@ class FakeCharactersRepositoryImpl @Inject constructor() : CharactersRepository 
 
     companion object {
 
-        val FAKE_CHARACTER_DTO = CharacterDto(
-            data = listOf(
+        fun getFakeCharacterDto() : CharacterDto {
+            val  characterDto = CharacterDto()
+            characterDto.add(
                 CharacterDtoItem(
                     id ="9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
                     name ="Harry Potter",
@@ -40,11 +41,12 @@ class FakeCharactersRepositoryImpl @Inject constructor() : CharactersRepository 
                     image ="https://ik.imagekit.io/hpapi/harry.jpg"
                 )
             )
-        )
+            return characterDto
+        }
     }
 
     override suspend fun getRemoteCharacters(): Response<CharacterDto> {
-        return Response.success(FAKE_CHARACTER_DTO)
+        return Response.success(getFakeCharacterDto())
     }
 
 }
