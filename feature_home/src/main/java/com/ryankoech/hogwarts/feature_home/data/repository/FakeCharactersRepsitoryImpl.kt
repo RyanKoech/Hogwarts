@@ -5,8 +5,9 @@ import com.ryankoech.hogwarts.feature_home.data.dto.character_dto.CharacterDtoIt
 import com.ryankoech.hogwarts.feature_home.data.dto.character_dto.Wand
 import com.ryankoech.hogwarts.feature_home.domain.repository.CharactersRepository
 import retrofit2.Response
+import javax.inject.Inject
 
-class FakeCharactersRepsitoryImpl : CharactersRepository {
+class FakeCharactersRepsitoryImpl @Inject constructor() : CharactersRepository {
 
     companion object {
 
