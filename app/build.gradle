@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.ryankoech.hogwarts'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.ryankoech.hogwarts"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -37,26 +37,33 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.1.1'
+        kotlinCompilerExtensionVersion compose_ui_version
     }
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    namespace "com.ryankoech.hogwarts"
 }
 
 dependencies {
+    // core android
+    implementation "androidx.core:core-ktx:$androidx_core_version"
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.1'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$androidx_lifecycle_version"
+
+    // compose
+    implementation "androidx.activity:activity-compose:$androidx_activity_compose_version"
     implementation "androidx.compose.ui:ui:$compose_ui_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
-    implementation 'androidx.compose.material:material:1.1.1'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation "androidx.compose.material:material:$compose_ui_version"
+
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:$jetbrain_kotlin_bom_version"))
+
+    testImplementation "junit:junit:$junit_verison"
+    androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
