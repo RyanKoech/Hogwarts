@@ -6,7 +6,7 @@ data class CharacterDtoItem(
     val alternate_actors: List<String>,
     val alternate_names: List<String>,
     val ancestry: String,
-    val dateOfBirth: String,
+    val dateOfBirth: String?,
     val eyeColour: String,
     val gender: String,
     val hairColour: String,
@@ -20,5 +20,5 @@ data class CharacterDtoItem(
     val species: String,
     val wand: Wand,
     val wizard: Boolean,
-    val yearOfBirth: Int
+    val yearOfBirth: Int?
 )
