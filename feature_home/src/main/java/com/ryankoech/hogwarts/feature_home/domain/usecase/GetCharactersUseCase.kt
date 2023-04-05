@@ -19,7 +19,7 @@ class GetCharactersUseCase @Inject constructor(
 
     private var cache : CharacterDto? = null
 
-    operator fun invoke(filterString : String = "") = flow<Resource<CharacterDto>> {
+    operator fun invoke(filterString : String = "", filterHouse : String = "",) = flow<Resource<CharacterDto>> {
 
         val response : Response<CharacterDto> = if(cache.isNullOrEmpty()) {
             val response = repository.getRemoteCharacters()
@@ -42,7 +42,7 @@ class GetCharactersUseCase @Inject constructor(
         }
 
         if(response.isSuccessful){
-            val filterCharactersList = response.body()!!.filter { it.name.contains(filterString, true) }
+            val filterCharactersList = response.body()!!.filter { it.name.contains(filterString, true) }.filter { it.house.contains(filterHouse, true) }
             val characters = CharacterDto()
             characters.addAll(filterCharactersList)
             emit(

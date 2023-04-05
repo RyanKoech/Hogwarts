@@ -13,6 +13,14 @@ import com.ryankoech.hogwarts.common.presentation.utils.ScreenState
 import com.ryankoech.hogwarts.feature_home.data.dto.character_dto.CharacterDtoItem
 import com.ryankoech.hogwarts.feature_home.presentation.viewmodel.HomeViewModel
 
+private val houses : Map<String, String> = hashMapOf(
+    "All" to "",
+    "Gryffindor" to "gryffindor",
+    "Slytherin" to "slytherin",
+    "Ravenclaw" to "ravenclaw",
+    "Hufflepuff" to "hufflepuff",
+)
+
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
@@ -25,8 +33,12 @@ fun HomeScreen(
         mutableStateOf("")
     }
 
+    var filterHouseState by remember {
+        mutableStateOf(houses.entries.iterator().next().key)
+    }
+
     fun editFilterStringState(subString :String) {
-        viewModel.getCharacters(subString)
+        viewModel.getCharacters(subString, houses[filterHouseState] ?: "")
         filterStringState = subString
     }
 
@@ -39,6 +51,12 @@ fun HomeScreen(
                 characters = viewState.characters,
                 searchBarValue = filterStringState,
                 onSearchBarValueChange = ::editFilterStringState,
+                housesList = houses.toList().map { it.first },
+                selectedHouse = filterHouseState,
+                changeSelectedHouse = {
+                    viewModel.getCharacters(filterStringState, houses[it] ?: "")
+                    filterHouseState = it
+                }
             )
         }
         ScreenState.LOADING -> {

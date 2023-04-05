@@ -22,11 +22,11 @@ class HomeViewModel @Inject constructor(
     val viewState : State<HomeScreenViewState> = _viewState
 
     init {
-        getCharacters()
+        getCharacters("", "")
     }
 
-    fun getCharacters(filterString : String = "") {
-        getCharactersUseCase(filterString)
+    fun getCharacters(filterString : String, filterHouse : String) {
+        getCharactersUseCase(filterString, filterHouse)
             .onEach { res ->
                 when(res) {
                     is Resource.Error -> {
