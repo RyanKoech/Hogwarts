@@ -2,6 +2,7 @@ package com.ryankoech.hogwarts.feature_home.presentation
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -29,7 +30,8 @@ fun HomeScreenSuccess(
 
     Column(
         modifier = modifier
-            .padding(horizontal = 12.dp),
+            .fillMaxSize()
+            .padding(12.dp),
     ) {
         SearchBar(value = searchBarValue, onValueChange = onSearchBarValueChange, placeholder = "Search character...")
 
