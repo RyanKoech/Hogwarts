@@ -60,7 +60,7 @@ fun HomeScreenSuccessPreview() {
                 navigateToCharacterScreen = {},
                 characters = FakeCharactersRepositoryImpl.getFakeCharacterDto(),
                 searchBarValue = "",
-                onSearchBarValueChange = {}
+                onSearchBarValueChange = {},
             )
         }
     }
