@@ -1,25 +1,18 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'dagger.hilt.android.plugin'
-    id 'kotlin-kapt'
 }
 
 android {
-    namespace 'com.ryankoech.hogwarts'
+    namespace 'com.ryankoech.hogwarts.feature_character'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.ryankoech.hogwarts"
         minSdk 21
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -41,46 +34,27 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion compose_ui_version
     }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
-    namespace "com.ryankoech.hogwarts"
 }
 
 dependencies {
+
     // core androidx
     implementation "androidx.core:core-ktx:$androidx_core_version"
 
     // local modules
     implementation project(":common")
-    implementation project(":feature_home")
-    implementation project(":feature_character")
-
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$androidx_lifecycle_version"
 
     // compose
     implementation "androidx.activity:activity-compose:$androidx_activity_compose_version"
     implementation "androidx.compose.ui:ui:$compose_ui_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
     implementation "androidx.compose.material:material:$compose_ui_version"
-    implementation "androidx.navigation:navigation-compose:$navigation_compose_version"
 
-    // timber
-    implementation "com.jakewharton.timber:timber:$timber_version"
-
-    // dagger-hilt - for dependency injection
-    implementation "com.google.dagger:hilt-android:$hilt_android_version"
-    implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_compose_version"
-    kapt "com.google.dagger:hilt-android-compiler:$hilt_android_compile_version"
-    kapt "androidx.hilt:hilt-compiler:$hilt_compile_version"
-
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom:$jetbrain_kotlin_bom_version"))
 
     testImplementation "junit:junit:$junit_verison"
     androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
