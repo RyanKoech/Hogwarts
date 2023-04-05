@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Hogwarts</string>
+    <string name="screen_title_character">Character</string>
 </resources>

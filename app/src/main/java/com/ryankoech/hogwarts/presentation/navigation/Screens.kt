@@ -14,6 +14,6 @@ sealed class Screens(
     )
     object Character : Screens(
         route = "character",
-        titleResId = R.string.app_name,
+        titleResId = R.string.screen_title_character,
     )
 }
