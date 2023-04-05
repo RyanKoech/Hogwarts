@@ -16,3 +16,4 @@ rootProject.name = "Hogwarts"
 include ':app'
 include ':common'
 include ':feature_home'
+include ':feature_character'
