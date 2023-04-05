@@ -55,6 +55,8 @@ dependencies {
 
     // local modules
     implementation project(":common")
+    implementation project(":feature_home")
+    implementation project(":feature_character")
 
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$androidx_lifecycle_version"
 
