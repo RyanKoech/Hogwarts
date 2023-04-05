@@ -1,4 +1,4 @@
-package com.ryankoech.hogwarts.ui.theme
+package com.ryankoech.hogwarts.common.presentation.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
