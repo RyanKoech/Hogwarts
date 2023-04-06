@@ -57,6 +57,8 @@ To get a local copy up and running follow these simple example steps.
 git clone https://github.com/RyanKoech/Hogwarts.git
 ```
 
+APK [here](./apk)
+
 ### Prerequisites
 Installed Android Studio or Any other android development IDEs and their respective dependencies.
 
