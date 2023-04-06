@@ -41,6 +41,9 @@ Each feature is will comprise of 3 layers; presentation, domain, data
 - Home Feature - Access full list of all characters.
 - Character Feature - Get inside information about your favourite character.
 
+#### Testing
+Test cases for Home and Character Modules implemented.
+
 ## App Screenshots
 
 ### Light
