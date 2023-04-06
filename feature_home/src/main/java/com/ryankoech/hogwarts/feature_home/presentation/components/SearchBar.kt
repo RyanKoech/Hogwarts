@@ -7,12 +7,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ryankoech.hogwarts.common.presentation.theme.HogwartsTheme
 import com.ryankoech.hogwarts.feature_home.R
 
+const val TEST_TAG_SEARCHBAR = "TEST_TAG_SEARCHBAR"
+const val TEST_TAG_SEARCHBAR_FILTER_ICON = "TEST_TAG_SEARCHBAR_FILTER_ICON"
 
 @Composable
 fun SearchBar(
@@ -45,7 +48,11 @@ fun SearchBar(
         onValueChange = onValueChange,
         singleLine = true,
         trailingIcon = {
-            IconButton(onClick = onTrailerCLick) {
+            IconButton(
+                modifier = Modifier
+                    .testTag(TEST_TAG_SEARCHBAR_FILTER_ICON),
+                onClick = onTrailerCLick
+            ) {
                 Icon(
                     painter = painterResource(R.drawable.icon_tune),
                     contentDescription = "Filters"
