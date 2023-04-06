@@ -15,6 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ryankoech.hogwarts.common.presentation.theme.HogwartsTheme
 
+const val TEST_TAG_ERROR_SCREEN = "TEST_TAG_ERROR_SCREEN"
+
 @Composable
 fun ErrorScreen(
     modifier : Modifier = Modifier

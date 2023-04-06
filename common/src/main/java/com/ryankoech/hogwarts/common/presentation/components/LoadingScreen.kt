@@ -10,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.ryankoech.hogwarts.common.presentation.theme.HogwartsTheme
 
+const val TEST_TAG_LOADING_SCREEN = "TEST_TAG_LOADING_SCREEN"
+
 @Composable
 fun LoadingScreen(
     modifier: Modifier = Modifier
