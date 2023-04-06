@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -26,6 +27,7 @@ import com.ryankoech.hogwarts.feature_home.presentation.components.RadioButtonGr
 import com.ryankoech.hogwarts.feature_home.presentation.components.SearchBar
 
 const val TEST_TAG_HOME_SCREEN_SUCCESS = "TEST_TAG_HOME_SCREEN_SUCCESS"
+const val TEST_TAG_HOME_SCREEN_SUCCESS_CLOSE_MODAL_ICON = "TEST_TAG_HOME_SCREEN_SUCCESS_CLOSE_MODAL_ICON"
 
 @Composable
 fun HomeScreenSuccess(
@@ -103,6 +105,8 @@ fun HomeScreenSuccess(
                             )
 
                             IconButton(
+                                modifier = Modifier
+                                    .testTag(TEST_TAG_HOME_SCREEN_SUCCESS_CLOSE_MODAL_ICON),
                                 onClick = { showModal = false }
                             ) {
 
