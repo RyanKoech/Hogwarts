@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.ryankoech.hogwarts.common.presentation.theme.HogwartsTheme
 import com.ryankoech.hogwarts.feature_home.R
 
+const val TEST_TAG_SEARCHBAR = "TEST_TAG_SEARCHBAR"
 const val TEST_TAG_SEARCHBAR_FILTER_ICON = "TEST_TAG_SEARCHBAR_FILTER_ICON"
 
 @Composable

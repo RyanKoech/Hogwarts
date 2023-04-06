@@ -25,6 +25,7 @@ import com.ryankoech.hogwarts.feature_home.data.repository.FakeCharactersReposit
 import com.ryankoech.hogwarts.feature_home.presentation.components.CharacterCard
 import com.ryankoech.hogwarts.feature_home.presentation.components.RadioButtonGroup
 import com.ryankoech.hogwarts.feature_home.presentation.components.SearchBar
+import com.ryankoech.hogwarts.feature_home.presentation.components.TEST_TAG_SEARCHBAR
 
 const val TEST_TAG_HOME_SCREEN_SUCCESS = "TEST_TAG_HOME_SCREEN_SUCCESS"
 const val TEST_TAG_HOME_SCREEN_SUCCESS_CLOSE_MODAL_ICON = "TEST_TAG_HOME_SCREEN_SUCCESS_CLOSE_MODAL_ICON"
@@ -54,6 +55,8 @@ fun HomeScreenSuccess(
                 .padding(12.dp),
         ) {
             SearchBar(
+                modifier = Modifier
+                    .testTag(TEST_TAG_SEARCHBAR),
                 value = searchBarValue,
                 onValueChange = onSearchBarValueChange,
                 placeholder = "Search character...",

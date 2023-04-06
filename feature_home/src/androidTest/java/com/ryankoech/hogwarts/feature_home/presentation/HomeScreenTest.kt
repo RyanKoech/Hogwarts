@@ -5,6 +5,8 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performTextInput
 import com.google.common.truth.Truth
 import com.ryankoech.hogwarts.common.core.util.Resource
 import com.ryankoech.hogwarts.common.presentation.components.TEST_TAG_ERROR_SCREEN
@@ -13,6 +15,7 @@ import com.ryankoech.hogwarts.common.presentation.theme.HogwartsTheme
 import com.ryankoech.hogwarts.feature_home.data.dto.character_dto.CharacterDto
 import com.ryankoech.hogwarts.feature_home.data.repository.FakeCharactersRepositoryImpl
 import com.ryankoech.hogwarts.feature_home.domain.usecase.GetCharactersUseCase
+import com.ryankoech.hogwarts.feature_home.presentation.components.TEST_TAG_SEARCHBAR
 import com.ryankoech.hogwarts.feature_home.presentation.viewmodel.HomeViewModel
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -131,6 +134,35 @@ class HomeScreenTest {
         }
 
         composeTestRule.onNodeWithTag(TEST_TAG_ERROR_SCREEN).assertIsDisplayed()
+
+    }
+
+    @Test
+    fun searchCharacterName_ShowNoOtherCharacterName() {
+        val characterDto = FakeCharactersRepositoryImpl.getFakeCharacterDto()
+        charactersFlows = flow {
+            emit(Resource.Success(characterDto))
+        }
+
+        coEvery { getCharactersUseCase(any(), any()) } returns charactersFlows
+
+        viewModel = HomeViewModel(getCharactersUseCase, dispatcher)
+
+
+        composeTestRule.setContent {
+            HogwartsTheme {
+                Surface {
+                    HomeScreen(
+                        navigateToCharacterScreen = {},
+                        viewModel = viewModel,
+                    )
+                }
+            }
+        }
+
+        composeTestRule.onNodeWithTag(TEST_TAG_SEARCHBAR).performTextInput(characterDto.first().name)
+
+        composeTestRule.onNodeWithText(characterDto.last().name).assertDoesNotExist()
 
     }
 }
