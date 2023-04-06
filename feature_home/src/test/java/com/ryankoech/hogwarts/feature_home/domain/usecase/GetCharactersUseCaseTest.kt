@@ -4,6 +4,7 @@ import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import com.ryankoech.hogwarts.common.core.util.Resource
 import com.ryankoech.hogwarts.feature_home.data.repository.FakeCharactersRepositoryImpl
+import com.ryankoech.hogwarts.feature_home.data.repository.FakeCharactersRepositoryImpl.Companion.MOCK_ERROR_CHARACTERDTO_API_RESPONSE
 import com.ryankoech.hogwarts.feature_home.domain.repository.CharactersRepository
 import com.ryankoech.hogwarts.feature_home.utils.MOCK_EXCEPTION_MESSAGE
 import io.mockk.coEvery
@@ -83,6 +84,22 @@ class GetCharactersUseCaseTest {
             assertThat(resource).isInstanceOf(Resource.Success::class.java)
             assertThat(resource.data!!.size).isNotEqualTo(FakeCharactersRepositoryImpl.getFakeCharacterDto().size)
             assertThat(resource.data!!.filter { it.house != searchHouse}).isEmpty()
+            awaitComplete()
+        }
+
+    }
+
+    @Test
+    fun  `repository return unsuccessful response - return Resource Error`() = runTest {
+        val mockRepository = mockk<CharactersRepository>()
+        coEvery { mockRepository.getRemoteCharacters() } returns MOCK_ERROR_CHARACTERDTO_API_RESPONSE
+
+        val getCharactersUseCase = GetCharactersUseCase(mockRepository)
+
+        getCharactersUseCase().test {
+            awaitItem()
+            val resource  = awaitItem()
+            assertThat(resource).isInstanceOf(Resource.Error::class.java)
             awaitComplete()
         }
 

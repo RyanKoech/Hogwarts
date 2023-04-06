@@ -4,12 +4,15 @@ import com.ryankoech.hogwarts.feature_home.data.dto.character_dto.CharacterDto
 import com.ryankoech.hogwarts.feature_home.data.dto.character_dto.CharacterDtoItem
 import com.ryankoech.hogwarts.feature_home.data.dto.character_dto.Wand
 import com.ryankoech.hogwarts.feature_home.domain.repository.CharactersRepository
+import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
 import javax.inject.Inject
 
 class FakeCharactersRepositoryImpl @Inject constructor() : CharactersRepository {
 
     companion object {
+
+        val MOCK_ERROR_CHARACTERDTO_API_RESPONSE : Response<CharacterDto> = Response.error(404, "Page not found".toResponseBody(null))
 
         fun getFakeCharacterDto() : CharacterDto {
             val  characterDto = CharacterDto()
