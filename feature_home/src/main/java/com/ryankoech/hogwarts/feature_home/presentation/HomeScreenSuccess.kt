@@ -25,6 +25,8 @@ import com.ryankoech.hogwarts.feature_home.presentation.components.CharacterCard
 import com.ryankoech.hogwarts.feature_home.presentation.components.RadioButtonGroup
 import com.ryankoech.hogwarts.feature_home.presentation.components.SearchBar
 
+const val TEST_TAG_HOME_SCREEN_SUCCESS = "TEST_TAG_HOME_SCREEN_SUCCESS"
+
 @Composable
 fun HomeScreenSuccess(
     modifier: Modifier = Modifier,
@@ -45,7 +47,7 @@ fun HomeScreenSuccess(
         modifier = modifier.fillMaxSize()
     ){
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(12.dp),
         ) {

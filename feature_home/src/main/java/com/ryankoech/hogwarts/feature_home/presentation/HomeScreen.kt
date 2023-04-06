@@ -4,10 +4,13 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ryankoech.hogwarts.common.presentation.components.ErrorScreen
 import com.ryankoech.hogwarts.common.presentation.components.LoadingScreen
+import com.ryankoech.hogwarts.common.presentation.components.TEST_TAG_ERROR_SCREEN
+import com.ryankoech.hogwarts.common.presentation.components.TEST_TAG_LOADING_SCREEN
 import com.ryankoech.hogwarts.common.presentation.theme.HogwartsTheme
 import com.ryankoech.hogwarts.common.presentation.utils.ScreenState
 import com.ryankoech.hogwarts.feature_home.data.dto.character_dto.CharacterDtoItem
@@ -46,7 +49,8 @@ fun HomeScreen(
     when(viewState.screenState) {
         ScreenState.SUCCESS -> {
             HomeScreenSuccess(
-                modifier = modifier,
+                modifier = modifier
+                    .testTag(TEST_TAG_HOME_SCREEN_SUCCESS),
                 navigateToCharacterScreen = navigateToCharacterScreen,
                 characters = viewState.characters,
                 searchBarValue = filterStringState,
@@ -61,12 +65,14 @@ fun HomeScreen(
         }
         ScreenState.LOADING -> {
             LoadingScreen(
-                modifier = modifier,
+                modifier = modifier
+                    .testTag(TEST_TAG_LOADING_SCREEN),
             )
         }
         ScreenState.ERROR -> {
             ErrorScreen(
-                modifier = modifier,
+                modifier = modifier
+                    .testTag(TEST_TAG_ERROR_SCREEN),
             )
         }
     }
