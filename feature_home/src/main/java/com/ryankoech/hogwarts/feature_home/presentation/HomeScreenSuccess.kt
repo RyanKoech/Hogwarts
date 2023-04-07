@@ -1,7 +1,5 @@
 package com.ryankoech.hogwarts.feature_home.presentation
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -9,19 +7,18 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.ryankoech.hogwarts.common.presentation.theme.HogwartsTheme
-import com.ryankoech.hogwarts.feature_home.data.dto.character_dto.CharacterDto
-import com.ryankoech.hogwarts.feature_home.data.dto.character_dto.CharacterDtoItem
+import com.ryankoech.hogwarts.feature_home.domain.entities.CharacterEntity
+import com.ryankoech.hogwarts.feature_home.domain.entities.CharacterEntityItem
 import com.ryankoech.hogwarts.feature_home.data.repository.FakeCharactersRepositoryImpl
+import com.ryankoech.hogwarts.feature_home.domain.entities.toCharacterEntity
 import com.ryankoech.hogwarts.feature_home.presentation.components.CharacterCard
 import com.ryankoech.hogwarts.feature_home.presentation.components.RadioButtonGroup
 import com.ryankoech.hogwarts.feature_home.presentation.components.SearchBar
@@ -33,8 +30,8 @@ const val TEST_TAG_HOME_SCREEN_SUCCESS_CLOSE_MODAL_ICON = "TEST_TAG_HOME_SCREEN_
 @Composable
 fun HomeScreenSuccess(
     modifier: Modifier = Modifier,
-    navigateToCharacterScreen : (CharacterDtoItem) -> Unit,
-    characters : CharacterDto,
+    navigateToCharacterScreen : (CharacterEntityItem) -> Unit,
+    characters : CharacterEntity,
     searchBarValue : String,
     onSearchBarValueChange : (String) -> Unit,
     housesList : List<String>,
@@ -141,7 +138,7 @@ fun HomeScreenSuccessPreview() {
         Surface {
             HomeScreenSuccess(
                 navigateToCharacterScreen = {},
-                characters = FakeCharactersRepositoryImpl.getFakeCharacterDto(),
+                characters = FakeCharactersRepositoryImpl.getFakeCharacterDto().toCharacterEntity(),
                 searchBarValue = "",
                 onSearchBarValueChange = {},
                 housesList = listOf("H", "Y"),
