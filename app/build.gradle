@@ -6,6 +6,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('D:\\Documents\\Coding\\MobileDev\\Kotlin\\Hogwarts\\build\\apk_key.jks')
+            storePassword '12345678'
+            keyAlias 'key0'
+            keyPassword '12345678'
+        }
+        release {
+            storeFile file('D:\\Documents\\Coding\\MobileDev\\Kotlin\\Hogwarts\\build\\apk_key.jks')
+            storePassword '12345678'
+            keyAlias 'key0'
+            keyPassword '12345678'
+        }
+    }
     namespace 'com.ryankoech.hogwarts'
     compileSdk 33
 
@@ -20,12 +34,14 @@ android {
             useSupportLibrary true
         }
         resConfigs "en"
-
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

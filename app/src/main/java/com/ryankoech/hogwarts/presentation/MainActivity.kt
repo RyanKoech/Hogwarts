@@ -22,7 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.ryankoech.hogwarts.R
 import com.ryankoech.hogwarts.common.presentation.theme.HogwartsTheme
 import com.ryankoech.hogwarts.feature_character.presentation.CharacterScreen
-import com.ryankoech.hogwarts.feature_home.data.dto.character_dto.CharacterDtoItem
+import com.ryankoech.hogwarts.feature_home.domain.entities.CharacterEntityItem
 import com.ryankoech.hogwarts.feature_home.presentation.HomeScreen
 import com.ryankoech.hogwarts.presentation.navigation.Screens
 import com.ryankoech.hogwarts.presentation.viewmodel.MainViewModel
@@ -39,8 +39,8 @@ class MainActivity : ComponentActivity() {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentDestination = navBackStackEntry?.destination
 
-            val navigateToCharacterScreen = { characterDtoItem : CharacterDtoItem ->
-                viewModel.updateCharacter(characterDtoItem)
+            val navigateToCharacterScreen = { characterEntityItem : CharacterEntityItem ->
+                viewModel.updateCharacter(characterEntityItem)
                 navController.navigate(Screens.Character.route){
                     launchSingleTop = true
                 }

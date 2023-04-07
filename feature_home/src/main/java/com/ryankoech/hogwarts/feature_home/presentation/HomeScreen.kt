@@ -13,7 +13,7 @@ import com.ryankoech.hogwarts.common.presentation.components.TEST_TAG_ERROR_SCRE
 import com.ryankoech.hogwarts.common.presentation.components.TEST_TAG_LOADING_SCREEN
 import com.ryankoech.hogwarts.common.presentation.theme.HogwartsTheme
 import com.ryankoech.hogwarts.common.presentation.utils.ScreenState
-import com.ryankoech.hogwarts.feature_home.data.dto.character_dto.CharacterDtoItem
+import com.ryankoech.hogwarts.feature_home.domain.entities.CharacterEntityItem
 import com.ryankoech.hogwarts.feature_home.presentation.viewmodel.HomeViewModel
 
 val HOUSES_MAP : Map<String, String> = hashMapOf(
@@ -28,7 +28,7 @@ val HOUSES_MAP : Map<String, String> = hashMapOf(
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel : HomeViewModel = hiltViewModel(),
-    navigateToCharacterScreen : (CharacterDtoItem) -> Unit
+    navigateToCharacterScreen : (CharacterEntityItem) -> Unit
 ) {
     val viewState = viewModel.viewState.value
 
