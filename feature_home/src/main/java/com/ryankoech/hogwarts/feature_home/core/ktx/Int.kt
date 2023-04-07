@@ -1,4 +1,4 @@
-package com.ryankoech.hogwarts.core.ktx
+package com.ryankoech.hogwarts.feature_home.core.ktx
 
 fun Int?.toStringOrNull() : String? {
     this?.apply {
