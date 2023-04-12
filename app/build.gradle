@@ -8,14 +8,8 @@ plugins {
 
 android {
     signingConfigs {
-        debug {
-            storeFile file('D:\\Documents\\Coding\\MobileDev\\Kotlin\\Hogwarts\\build\\apk_key.jks')
-            storePassword '12345678'
-            keyAlias 'key0'
-            keyPassword '12345678'
-        }
         release {
-            storeFile file('D:\\Documents\\Coding\\MobileDev\\Kotlin\\Hogwarts\\build\\apk_key.jks')
+            storeFile file('D:\\Documents\\Coding\\MobileDev\\Kotlin\\Hogwarts\\apk\\apk_key.jks')
             storePassword '12345678'
             keyAlias 'key0'
             keyPassword '12345678'
@@ -35,11 +29,11 @@ android {
             useSupportLibrary true
         }
         resConfigs "en"
-        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
             debuggable false
