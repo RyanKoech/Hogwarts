@@ -9,7 +9,7 @@ plugins {
 android {
     signingConfigs {
         release {
-            storeFile file('D:\\Documents\\Coding\\MobileDev\\Kotlin\\Hogwarts\\build\\apk_key.jks')
+            storeFile file('D:\\Documents\\Coding\\MobileDev\\Kotlin\\Hogwarts\\apk\\apk_key.jks')
             storePassword '12345678'
             keyAlias 'key0'
             keyPassword '12345678'
@@ -24,11 +24,11 @@ android {
         resConfigs "en"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             debuggable true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
