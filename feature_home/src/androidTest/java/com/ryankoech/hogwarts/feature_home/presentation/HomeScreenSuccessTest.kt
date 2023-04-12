@@ -5,8 +5,9 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import com.ryankoech.hogwarts.common.presentation.theme.HogwartsTheme
-import com.ryankoech.hogwarts.feature_home.data.dto.character_dto.CharacterDto
 import com.ryankoech.hogwarts.feature_home.data.repository.FakeCharactersRepositoryImpl
+import com.ryankoech.hogwarts.feature_home.domain.entities.CharacterEntity
+import com.ryankoech.hogwarts.feature_home.domain.entities.toCharacterEntity
 import com.ryankoech.hogwarts.feature_home.presentation.components.TEST_TAG_SEARCHBAR_FILTER_ICON
 import io.mockk.junit4.MockKRule
 import org.junit.After
@@ -22,12 +23,12 @@ class HomeScreenSuccessTest {
     @get:Rule
     val mockkRule = MockKRule(this)
 
-    private lateinit var characterDto : CharacterDto
+    private lateinit var characterDto : CharacterEntity
 
     @Before
     fun setUp() {
 
-        characterDto = FakeCharactersRepositoryImpl.getFakeCharacterDto()
+        characterDto = FakeCharactersRepositoryImpl.getFakeCharacterDto().toCharacterEntity()
 
         composeTestRule.setContent {
             HogwartsTheme {
