@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getCharactersUseCase: GetCharactersUseCase,
-    private val dispatcher: CoroutineDispatcher,
+    // private val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val _viewState = mutableStateOf(HomeScreenViewState())
@@ -30,10 +30,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getCharacters(filterString : String, filterHouse : String) {
-        viewModelScope.launch {
-            withContext(dispatcher) {
-                getCharactersUseCase(filterString, filterHouse)
-            }.onEach { res ->
+        getCharactersUseCase(filterString, filterHouse).onEach { res ->
                 when(res) {
                     is Resource.Error -> {
                         _viewState.value = _viewState.value.copy(
@@ -53,7 +50,6 @@ class HomeViewModel @Inject constructor(
                     }
                 }
             }.launchIn(viewModelScope)
-        }
     }
 
 }

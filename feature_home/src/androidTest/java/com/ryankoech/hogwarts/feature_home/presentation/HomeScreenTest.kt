@@ -31,7 +31,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class HomeScreenTest {
 
     @get:Rule
@@ -47,17 +46,17 @@ class HomeScreenTest {
 
     private lateinit var charactersFlows : Flow<Resource<CharacterEntity>>
 
-    private lateinit var dispatcher: CoroutineDispatcher
+    // private lateinit var dispatcher: CoroutineDispatcher
 
     @Before
     fun setUp() {
-        dispatcher = Dispatchers.Unconfined
-        Dispatchers.setMain(dispatcher)
+        // dispatcher = Dispatchers.Unconfined
+        // Dispatchers.setMain(dispatcher)
     }
 
     @After
     fun tearDown() {
-        Dispatchers.resetMain()
+        // Dispatchers.resetMain()
     }
 
     @Test
@@ -68,7 +67,7 @@ class HomeScreenTest {
 
         coEvery { getCharactersUseCase(any(), any()) } returns charactersFlows
 
-        viewModel = HomeViewModel(getCharactersUseCase, dispatcher)
+        viewModel = HomeViewModel(getCharactersUseCase)
 
         composeTestRule.setContent {
             HogwartsTheme {
@@ -93,7 +92,7 @@ class HomeScreenTest {
 
         coEvery { getCharactersUseCase(any(), any()) } returns charactersFlows
 
-        viewModel = HomeViewModel(getCharactersUseCase, dispatcher)
+        viewModel = HomeViewModel(getCharactersUseCase)
 
 
         composeTestRule.setContent {
@@ -119,7 +118,7 @@ class HomeScreenTest {
 
         coEvery { getCharactersUseCase(any(), any()) } returns charactersFlows
 
-        viewModel = HomeViewModel(getCharactersUseCase, dispatcher)
+        viewModel = HomeViewModel(getCharactersUseCase)
 
         composeTestRule.setContent {
             HogwartsTheme {
@@ -139,13 +138,9 @@ class HomeScreenTest {
     @Test
     fun searchCharacterName_ShowNoOtherCharacterName() {
         val characterDto = FakeCharactersRepositoryImpl.getFakeCharacterDto().toCharacterEntity()
-        charactersFlows = flow {
-            emit(Resource.Success(characterDto))
-        }
+        val getCharactersUseCase = GetCharactersUseCase(FakeCharactersRepositoryImpl())
 
-        coEvery { getCharactersUseCase(any(), any()) } returns charactersFlows
-
-        viewModel = HomeViewModel(getCharactersUseCase, dispatcher)
+        viewModel = HomeViewModel(getCharactersUseCase)
 
 
         composeTestRule.setContent {
@@ -158,6 +153,8 @@ class HomeScreenTest {
                 }
             }
         }
+
+        composeTestRule.onNodeWithText(characterDto.last().name).assertExists()
 
         composeTestRule.onNodeWithTag(TEST_TAG_SEARCHBAR).performTextInput(characterDto.first().name)
 
