@@ -11,7 +11,7 @@ class FakeCharactersRepositoryImpl @Inject constructor() : CharactersRepository 
 
     companion object {
 
-        val MOCK_ERROR_CHARACTERDTO_API_RESPONSE : Response<CharacterEntity> = Response.error(404, "Page not found".toResponseBody(null))
+        val MOCK_ERROR_CHARACTERDTO_API_RESPONSE : Response<CharacterDto> = Response.error(404, "Page not found".toResponseBody(null))
 
         fun getFakeCharacterDto() : CharacterDto {
             val  characterDto = CharacterDto()

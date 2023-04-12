@@ -5,6 +5,7 @@ import com.google.common.truth.Truth.assertThat
 import com.ryankoech.hogwarts.common.core.util.Resource
 import com.ryankoech.hogwarts.feature_home.data.repository.FakeCharactersRepositoryImpl
 import com.ryankoech.hogwarts.feature_home.data.repository.FakeCharactersRepositoryImpl.Companion.MOCK_ERROR_CHARACTERDTO_API_RESPONSE
+import com.ryankoech.hogwarts.feature_home.domain.entities.toCharacterEntity
 import com.ryankoech.hogwarts.feature_home.domain.repository.CharactersRepository
 import com.ryankoech.hogwarts.feature_home.utils.MOCK_EXCEPTION_MESSAGE
 import io.mockk.coEvery
@@ -46,8 +47,8 @@ class GetCharactersUseCaseTest {
             awaitItem()
             val resource  = awaitItem()
             assertThat(resource).isInstanceOf(Resource.Success::class.java)
-            assertThat(resource.data!!.size).isEqualTo(FakeCharactersRepositoryImpl.getFakeCharacterDto().size)
-            assertThat(resource.data!!.last()).isEqualTo(FakeCharactersRepositoryImpl.getFakeCharacterDto().last())
+            assertThat(resource.data!!.size).isEqualTo(FakeCharactersRepositoryImpl.getFakeCharacterDto().toCharacterEntity().size)
+            assertThat(resource.data!!.last()).isEqualTo(FakeCharactersRepositoryImpl.getFakeCharacterDto().toCharacterEntity().last())
             awaitComplete()
         }
 
@@ -57,7 +58,7 @@ class GetCharactersUseCaseTest {
     fun  `repository return Data, with name filter Strings - return Resource Success and no character without specified name`() = runTest {
         val getCharactersUseCase = GetCharactersUseCase(fakeRepository)
 
-        val searchName = FakeCharactersRepositoryImpl.getFakeCharacterDto().last().name
+        val searchName = FakeCharactersRepositoryImpl.getFakeCharacterDto().last().name!!
         getCharactersUseCase(
             filterString = searchName
         ).test {
@@ -75,7 +76,7 @@ class GetCharactersUseCaseTest {
     fun  `repository return Data, with house filter Strings - return Resource Success and no character without specified house`() = runTest {
         val getCharactersUseCase = GetCharactersUseCase(fakeRepository)
 
-        val searchHouse = FakeCharactersRepositoryImpl.getFakeCharacterDto().first().house
+        val searchHouse = FakeCharactersRepositoryImpl.getFakeCharacterDto().first().house!!
         getCharactersUseCase(
             filterString = searchHouse
         ).test {

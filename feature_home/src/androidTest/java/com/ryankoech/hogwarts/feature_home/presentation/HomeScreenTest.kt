@@ -7,20 +7,19 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performTextInput
-import com.google.common.truth.Truth
 import com.ryankoech.hogwarts.common.core.util.Resource
 import com.ryankoech.hogwarts.common.presentation.components.TEST_TAG_ERROR_SCREEN
 import com.ryankoech.hogwarts.common.presentation.components.TEST_TAG_LOADING_SCREEN
 import com.ryankoech.hogwarts.common.presentation.theme.HogwartsTheme
-import com.ryankoech.hogwarts.feature_home.data.dto.character_dto.CharacterDto
 import com.ryankoech.hogwarts.feature_home.data.repository.FakeCharactersRepositoryImpl
+import com.ryankoech.hogwarts.feature_home.domain.entities.CharacterEntity
+import com.ryankoech.hogwarts.feature_home.domain.entities.toCharacterEntity
 import com.ryankoech.hogwarts.feature_home.domain.usecase.GetCharactersUseCase
 import com.ryankoech.hogwarts.feature_home.presentation.components.TEST_TAG_SEARCHBAR
 import com.ryankoech.hogwarts.feature_home.presentation.viewmodel.HomeViewModel
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit4.MockKRule
-import io.mockk.mockk
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -46,7 +45,7 @@ class HomeScreenTest {
 
     private lateinit var viewModel : HomeViewModel
 
-    private lateinit var charactersFlows : Flow<Resource<CharacterDto>>
+    private lateinit var charactersFlows : Flow<Resource<CharacterEntity>>
 
     private lateinit var dispatcher: CoroutineDispatcher
 
@@ -89,7 +88,7 @@ class HomeScreenTest {
     @Test
     fun fetchCoins_ShowSuccessScreen() {
         charactersFlows = flow {
-            emit(Resource.Success(FakeCharactersRepositoryImpl.getFakeCharacterDto()))
+            emit(Resource.Success(FakeCharactersRepositoryImpl.getFakeCharacterDto().toCharacterEntity()))
         }
 
         coEvery { getCharactersUseCase(any(), any()) } returns charactersFlows
@@ -139,7 +138,7 @@ class HomeScreenTest {
 
     @Test
     fun searchCharacterName_ShowNoOtherCharacterName() {
-        val characterDto = FakeCharactersRepositoryImpl.getFakeCharacterDto()
+        val characterDto = FakeCharactersRepositoryImpl.getFakeCharacterDto().toCharacterEntity()
         charactersFlows = flow {
             emit(Resource.Success(characterDto))
         }

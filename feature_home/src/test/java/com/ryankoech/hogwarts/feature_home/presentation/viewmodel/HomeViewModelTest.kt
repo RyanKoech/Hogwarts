@@ -3,6 +3,7 @@ package com.ryankoech.hogwarts.feature_home.presentation.viewmodel
 import com.google.common.truth.Truth.assertThat
 import com.ryankoech.hogwarts.common.presentation.utils.ScreenState
 import com.ryankoech.hogwarts.feature_home.data.repository.FakeCharactersRepositoryImpl
+import com.ryankoech.hogwarts.feature_home.domain.entities.toCharacterEntity
 import com.ryankoech.hogwarts.feature_home.domain.repository.CharactersRepository
 import com.ryankoech.hogwarts.feature_home.domain.usecase.GetCharactersUseCase
 import com.ryankoech.hogwarts.feature_home.presentation.viewstate.HomeScreenViewState
@@ -53,7 +54,7 @@ class HomeViewModelTest {
         val state = viewModel.viewState.value
 
         assertThat(state.screenState).isEqualTo(ScreenState.SUCCESS)
-        assertThat(state.characters).isEqualTo(FakeCharactersRepositoryImpl.getFakeCharacterDto())
+        assertThat(state.characters).isEqualTo(FakeCharactersRepositoryImpl.getFakeCharacterDto().toCharacterEntity())
     }
 
     @Test
@@ -71,7 +72,7 @@ class HomeViewModelTest {
 
     @Test
     fun `viewModel shows success state with filter name data`() = runTest {
-        val filterName = FakeCharactersRepositoryImpl.getFakeCharacterDto().first().name
+        val filterName = FakeCharactersRepositoryImpl.getFakeCharacterDto().first().name!!
 
         viewModel.getCharacters(
             filterString = filterName,
@@ -89,7 +90,7 @@ class HomeViewModelTest {
 
     @Test
     fun `viewModel shows success state with filter house data`() = runTest {
-        val filterHouse = FakeCharactersRepositoryImpl.getFakeCharacterDto().first().house
+        val filterHouse = FakeCharactersRepositoryImpl.getFakeCharacterDto().first().house!!
 
         viewModel.getCharacters(
             filterString = "",
@@ -107,8 +108,8 @@ class HomeViewModelTest {
 
     @Test
     fun `viewModel shows success state with filter name and house data`() = runTest {
-        val filterHouse = FakeCharactersRepositoryImpl.getFakeCharacterDto().first().house
-        val filterName = FakeCharactersRepositoryImpl.getFakeCharacterDto().first().name
+        val filterHouse = FakeCharactersRepositoryImpl.getFakeCharacterDto().first().house!!
+        val filterName = FakeCharactersRepositoryImpl.getFakeCharacterDto().first().name!!
 
         viewModel.getCharacters(
             filterString = filterName,
