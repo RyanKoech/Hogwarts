@@ -3,12 +3,13 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
+    id 'org.sonarqube'
 }
 
 android {
     signingConfigs {
         release {
-            storeFile file('D:\\Documents\\Coding\\MobileDev\\Kotlin\\Hogwarts\\build\\apk_key.jks')
+            storeFile file('D:\\Documents\\Coding\\MobileDev\\Kotlin\\Hogwarts\\apk\\apk_key.jks')
             storePassword '12345678'
             keyAlias 'key0'
             keyPassword '12345678'
@@ -23,11 +24,11 @@ android {
         resConfigs "en"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             debuggable true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -71,6 +72,8 @@ dependencies {
     implementation "androidx.compose.ui:ui:$compose_ui_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
     implementation "androidx.compose.material:material:$compose_ui_version"
+
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:$jetbrain_kotlin_bom_version"))
 
     // coil compose
     implementation "io.coil-kt:coil-compose:$coil_version"
