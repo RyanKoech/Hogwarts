@@ -30,7 +30,7 @@ class HomeViewModelTest {
         val getCharactersUseCase = GetCharactersUseCase(FakeCharactersRepositoryImpl())
         dispatcher = StandardTestDispatcher()
         Dispatchers.setMain(dispatcher)
-        viewModel = HomeViewModel(getCharactersUseCase, dispatcher)
+        viewModel = HomeViewModel(getCharactersUseCase)
     }
 
     @After
@@ -62,7 +62,7 @@ class HomeViewModelTest {
         val mockRepository = mockk<CharactersRepository>()
         coEvery { mockRepository.getRemoteCharacters() } throws Exception(MOCK_EXCEPTION_MESSAGE)
 
-        viewModel = HomeViewModel(GetCharactersUseCase(mockRepository), dispatcher)
+        viewModel = HomeViewModel(GetCharactersUseCase(mockRepository))
         dispatcher.scheduler.advanceUntilIdle()
 
         val state = viewModel.viewState.value
