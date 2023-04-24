@@ -30,147 +30,102 @@ jobs:
             feature_character/build/reports/lint-results-debug.html
             feature_home/build/reports/lint-results-debug.html
 
-#      - name: Upload common module html test report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: artifacts/lint/common-lint.html
-#          path: common/build/reports/lint-results-debug.html
-#
-#      - name: Upload character feature module html test report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: artifacts/lint/feature_character-lint.html
-#          path: feature_character/build/reports/lint-results-debug.html
-#
-#      - name: Upload home feature module html test report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: artifacts/lint/feature_home-lint.html
-#          path: feature_home/build/reports/lint-results-debug.html
-#
-#  unit-test:
-#    needs: [lint]
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout the code
-#        uses: actions/checkout@v2
-#
-#      - name: Make gradlew executable
-#        run: chmod +x ./gradlew
-#
-#      - name: Run tests
-#        run: ./gradlew test
-#
-#      - name: Upload app unit test report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: artifacts/unit_test_report/app
-#          path: app/build/reports/tests/testDebugUnitTest/
-#
-#      - name: Upload common module unit test report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: artifacts/unit_test_report/common
-#          path: common/build/reports/tests/testDebugUnitTest/
-#
-#      - name: Upload character feature module unit test report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: artifacts/unit_test_report/feature_character
-#          path: feature_character/build/reports/tests/testDebugUnitTest/
-#
-#      - name: Upload home feature module unit test report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: artifacts/unit_test_report/feature_home
-#          path: feature_home/build/reports/tests/testDebugUnitTest/
-#
-#  instrumentation-test:
-#    needs: [unit-test]
-#    runs-on: macos-latest
-#    steps:
-#      - name: Checkout the code
-#        uses: actions/checkout@v2
-#
-#      - name: set up JDK 11
-#        uses: actions/setup-java@v1
-#        with:
-#          java-version: 11
-#
-#      - name: Make gradlew executable
-#        run: chmod +x ./gradlew
-#
-#      - name: Run implementation tests
-#        uses: reactivecircus/android-emulator-runner@v2
-#        with:
-#          api-level: 29
-#          script: ./gradlew connectedCheck
-#
-#      - name: Upload app instrumentation test report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: artifacts/instrumentation_test_report/app
-#          path: app/build/reports/androidTests/connected/
-#
-#      - name: Upload common module instrumentation test report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: artifacts/instrumentation_test_report/common
-#          path: common/build/reports/androidTests/connected/
-#
-#      - name: Upload character feature module instrumentation test report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: artifacts/instrumentation_test_report/feature_character
-#          path: feature_character/build/reports/androidTests/connected/
-#
-#      - name: Upload home feature module instrumentation test report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: artifacts/instrumentation_test_report/feature_home
-#          path: feature_home/build/reports/androidTests/connected/
-#
-#  static-code-analysis:
-#    needs: [instrumentation-test]
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout the code
-#        uses: actions/checkout@v2
-#
-#      - name: Make gradlew executable
-#        run: chmod +x ./gradlew
-#
-#      - name: set up JDK 11
-#        uses: actions/setup-java@v1
-#        with:
-#          java-version: 11
-#
-#      - name: SonarCloud Scan
-#        run: ./gradlew --info --stacktrace app:sonarqube -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#
-#  package:
-#    needs: [static-code-analysis]
-#    name: Generate APK
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout the code
-#        uses: actions/checkout@v2
-#
-#      - name: Make gradlew executable
-#        run: chmod +x ./gradlew
-#
-#      - name: set up JDK 11
-#        uses: actions/setup-java@v1
-#        with:
-#          java-version: 11
-#
-#      - name: Build debug APK
-#        run: ./gradlew assembleDebug --stacktrace
-#
-#      - name: Upload APK
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: artifacts/apk/Hogwarts-Debug.apk
-#          path: app/build/outputs/apk/debug/app-debug.apk
+  unit-test:
+    needs: [lint]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Run tests
+        run: ./gradlew test
+
+      - name: Upload unit test report
+        uses: actions/upload-artifact@v3
+        with:
+          name: unit_test_report
+          path: | 
+            app/build/reports/tests/testDebugUnitTest/
+            common/build/reports/tests/testDebugUnitTest/
+            feature_character/build/reports/tests/testDebugUnitTest/
+            feature_home/build/reports/tests/testDebugUnitTest/
+
+  instrumentation-test:
+    needs: [unit-test]
+    runs-on: macos-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Run implementation tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedCheck
+
+      - name: Upload instrumentation test report
+        uses: actions/upload-artifact@v3
+        with:
+          name: instrumentation_test_report
+          path: |
+            app/build/reports/androidTests/connected/
+            common/build/reports/androidTests/connected/
+            feature_character/build/reports/androidTests/connected/
+            feature_home/build/reports/androidTests/connected/
+          
+
+  static-code-analysis:
+    needs: [instrumentation-test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: SonarCloud Scan
+        run: ./gradlew --info --stacktrace app:sonarqube -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  package:
+    needs: [static-code-analysis]
+    name: Generate APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: apk
+          path: app/build/outputs/apk/debug/app-debug.apk
