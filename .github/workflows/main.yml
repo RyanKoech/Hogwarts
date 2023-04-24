@@ -20,11 +20,29 @@ jobs:
       - name: Run Lint
         run: ./gradlew lintDebug
 
-      - name: Upload html test report
+      - name: Upload app html test report
         uses: actions/upload-artifact@v2
         with:
-          name: lint.html
+          name: artifacts/lint/app-lint.html
           path: app/build/reports/lint-results-debug.html
+
+      - name: Upload common module html test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts/lint/common-lint.html
+          path: common/build/reports/lint-results-debug.html
+
+      - name: Upload character feature module html test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts/lint/feature_character-lint.html
+          path: feature_character/build/reports/lint-results-debug.html
+
+      - name: Upload home feature module html test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts/lint/feature_home-lint.html
+          path: feature_home/build/reports/lint-results-debug.html
 
   unit-test:
     needs: [lint]
@@ -39,11 +57,29 @@ jobs:
       - name: Run tests
         run: ./gradlew test
 
-      - name: Upload test report
+      - name: Upload app unit test report
         uses: actions/upload-artifact@v2
         with:
-          name: unit_test_report
+          name: artifacts/unit_test_report/app
           path: app/build/reports/tests/testDebugUnitTest/
+
+      - name: Upload common module unit test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts/unit_test_report/common
+          path: common/build/reports/tests/testDebugUnitTest/
+
+      - name: Upload character feature module unit test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts/unit_test_report/feature_character
+          path: feature_character/build/reports/tests/testDebugUnitTest/
+
+      - name: Upload home feature module unit test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts/unit_test_report/feature_home
+          path: feature_home/build/reports/tests/testDebugUnitTest/
 
   instrumentation-test:
     needs: [unit-test]
@@ -66,11 +102,29 @@ jobs:
           api-level: 29
           script: ./gradlew connectedCheck
 
-      - name: Upload test report
+      - name: Upload app instrumentation test report
         uses: actions/upload-artifact@v2
         with:
-          name: instrumentation_test_report
+          name: artifacts/instrumentation_test_report/app
           path: app/build/reports/androidTests/connected/
+
+      - name: Upload common module instrumentation test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts/instrumentation_test_report/common
+          path: common/build/reports/androidTests/connected/
+
+      - name: Upload character feature module instrumentation test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts/instrumentation_test_report/feature_character
+          path: feature_character/build/reports/androidTests/connected/
+
+      - name: Upload home feature module instrumentation test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts/instrumentation_test_report/feature_home
+          path: feature_home/build/reports/androidTests/connected/
 
   static-code-analysis:
     needs: [instrumentation-test]
@@ -114,5 +168,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
-          name: Hogwarts-Debug.apk
+          name: artifacts/apk/Hogwarts-Debug.apk
           path: app/build/outputs/apk/debug/app-debug.apk
