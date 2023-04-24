@@ -24,7 +24,11 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: lint
-          path: /*/build/reports/lint-results-debug.html
+          path: |
+            app/build/reports/lint-results-debug.html
+            common/build/reports/lint-results-debug.html
+            feature_character/build/reports/lint-results-debug.html
+            feature_home/build/reports/lint-results-debug.html
 
 #      - name: Upload common module html test report
 #        uses: actions/upload-artifact@v2
