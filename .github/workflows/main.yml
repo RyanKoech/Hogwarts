@@ -115,9 +115,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./gradlew build sonarqube --info --stacktrace
+      - name: Upload coverage html report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: |
+            app/build/reports/kover/html
+            common/build/reports/kover/html
+            feature_character/build/reports/kover/html
+            feature_home/build/reports/kover/html
 
   package:
-    needs: [instrumentation-test]
+    needs: [static-code-analysis]
     name: Generate APK
     runs-on: ubuntu-latest
     steps:
