@@ -13,7 +13,7 @@ sonarqube {
         property "sonar.organization", "ryankoech"
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.java.coveragePlugin", "kover"
-        property "sonar.coverage.jacoco.xmlReportPat", "build/reports/kover/xml/report.xml"
+        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/kover/xml/report.xml"
     }
 }
 
