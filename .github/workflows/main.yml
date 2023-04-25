@@ -8,84 +8,105 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
-      - name: Run Lint
-        run: ./gradlew lintDebug
-
-      - name: Upload app html test report
-        uses: actions/upload-artifact@v3
-        with:
-          name: lint
-          path: |
-            app/build/reports/lint-results-debug.html
-            common/build/reports/lint-results-debug.html
-            feature_character/build/reports/lint-results-debug.html
-            feature_home/build/reports/lint-results-debug.html
-
-  unit-test:
-    needs: [lint]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
-      - name: Run tests
-        run: ./gradlew test
-
-      - name: Upload unit test report
-        uses: actions/upload-artifact@v3
-        with:
-          name: unit_test_report
-          path: |
-            app/build/reports/tests/testDebugUnitTest/
-            common/build/reports/tests/testDebugUnitTest/
-            feature_character/build/reports/tests/testDebugUnitTest/
-            feature_home/build/reports/tests/testDebugUnitTest/
-
-  instrumentation-test:
-    needs: [unit-test]
-    runs-on: macos-latest
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-
-      - name: set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
-      - name: Run implementation tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: ./gradlew connectedCheck
-
-      - name: Upload instrumentation test report
-        uses: actions/upload-artifact@v3
-        with:
-          name: instrumentation_test_report
-          path: |
-            app/build/reports/androidTests/connected/
-            common/build/reports/androidTests/connected/
-            feature_character/build/reports/androidTests/connected/
-            feature_home/build/reports/androidTests/connected/
+#  lint:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout the code
+#        uses: actions/checkout@v2
 #
-#  static-code-analysis:
+#      - name: Make gradlew executable
+#        run: chmod +x ./gradlew
+#
+#      - name: Run Lint
+#        run: ./gradlew lintDebug
+#
+#      - name: Upload app html test report
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: lint
+#          path: |
+#            app/build/reports/lint-results-debug.html
+#            common/build/reports/lint-results-debug.html
+#            feature_character/build/reports/lint-results-debug.html
+#            feature_home/build/reports/lint-results-debug.html
+#
+#  unit-test:
+#    needs: [lint]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout the code
+#        uses: actions/checkout@v2
+#
+#      - name: Make gradlew executable
+#        run: chmod +x ./gradlew
+#
+#      - name: Run tests
+#        run: ./gradlew test
+#
+#      - name: Upload unit test report
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: unit_test_report
+#          path: |
+#            app/build/reports/tests/testDebugUnitTest/
+#            common/build/reports/tests/testDebugUnitTest/
+#            feature_character/build/reports/tests/testDebugUnitTest/
+#            feature_home/build/reports/tests/testDebugUnitTest/
+#
+#  instrumentation-test:
+#    needs: [unit-test]
+#    runs-on: macos-latest
+#    steps:
+#      - name: Checkout the code
+#        uses: actions/checkout@v2
+#
+#      - name: set up JDK 11
+#        uses: actions/setup-java@v1
+#        with:
+#          java-version: 11
+#
+#      - name: Make gradlew executable
+#        run: chmod +x ./gradlew
+#
+#      - name: Run implementation tests
+#        uses: reactivecircus/android-emulator-runner@v2
+#        with:
+#          api-level: 29
+#          script: ./gradlew connectedCheck
+#
+#      - name: Upload instrumentation test report
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: instrumentation_test_report
+#          path: |
+#            app/build/reports/androidTests/connected/
+#            common/build/reports/androidTests/connected/
+#            feature_character/build/reports/androidTests/connected/
+#            feature_home/build/reports/androidTests/connected/
+##
+##  static-code-analysis:
+##    needs: [instrumentation-test]
+##    runs-on: ubuntu-latest
+##    steps:
+##      - name: Checkout the code
+##        uses: actions/checkout@v2
+##
+##      - name: Make gradlew executable
+##        run: chmod +x ./gradlew
+##
+##      - name: set up JDK 11
+##        uses: actions/setup-java@v1
+##        with:
+##          java-version: 11
+##
+##      - name: SonarCloud Scan
+##        run: ./gradlew --info --stacktrace app:sonarqube -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+##        env:
+##          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#
+#  package:
 #    needs: [instrumentation-test]
+#    name: Generate APK
 #    runs-on: ubuntu-latest
 #    steps:
 #      - name: Checkout the code
@@ -99,32 +120,40 @@ jobs:
 #        with:
 #          java-version: 11
 #
-#      - name: SonarCloud Scan
-#        run: ./gradlew --info --stacktrace app:sonarqube -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  package:
-    needs: [instrumentation-test]
-    name: Generate APK
+#      - name: Build debug APK
+#        run: ./gradlew assembleDebug --stacktrace
+#
+#      - name: Upload APK
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: apk
+#          path: app/build/outputs/apk/debug/app-debug.apk
+  build:
+    name: Build and analyze
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
-      - name: set up JDK 11
-        uses: actions/setup-java@v1
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
         with:
           java-version: 11
-
-      - name: Build debug APK
-        run: ./gradlew assembleDebug --stacktrace
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v3
+          distribution: 'zulu' # Alternative distribution options are available
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
         with:
-          name: apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew build sonarqube --info --stacktrace
