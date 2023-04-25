@@ -136,7 +136,7 @@ jobs:
             feature_home/build/reports/kover/html
 
   package:
-    needs: [instrumentation-test]
+    needs: [static-code-analysis]
     name: Generate APK
     runs-on: ubuntu-latest
     steps:
