@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'org.sonarqube'
+    id 'org.jetbrains.kotlinx.kover' version '0.6.0'
 }
 
 sonarqube {
@@ -9,6 +10,8 @@ sonarqube {
         property "sonar.projectKey", "RyanKoech_Hogwarts"
         property "sonar.organization", "ryankoech"
         property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.java.coveragePlugin", "kover"
+        property "sonar.coverage.jacoco.xmlReportPat", "build/reports/kover/xml/report.xml"
     }
 }
 
